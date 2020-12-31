@@ -100,9 +100,7 @@ lda_m= fix(round((err_lda_all_mean),2)*100);
 svm_m= fix(round((err_svm_all_mean),2)*100);
 cart3_m= fix(round((err_cart3_all_mean),2)*100);
 knn3_m= fix(round((err_knn3_all_mean),2)*100);
-
-all=[lda_m, svm_m, cart3_m, knn3_m]
-
+% all=[lda_m, svm_m, cart3_m, knn3_m]
 
 figure; boxplot(100*err_lda_all_mean); title('LDA'); 
 grid on; xticklabels({'10', '15', '20'}); %ylim([50 95]); 
@@ -117,13 +115,11 @@ grid on; xticklabels({'10', '15', '20'}); %ylim([50 95]);
 figure; boxplot(err_knn3_all_mean); title('CART-3')
 grid on; xticklabels({'10', '15', '20'}); %ylim([50 95]); 
 
-% figure; boxplot(err_cart5); title('CART-10')
 
 for i=1:3
 %     for subj=1:20
 %         name= append('subj', num2str(subj));
 %         cart3_all_err.(name)
-i=2;
           mean_n= [err_lda_all_mean(:,i) , err_svm_all_mean(:,i), ...
               err_cart3_all_mean(:,i) , err_knn3_all_mean(:,i)]; 
           
@@ -134,113 +130,23 @@ i=2;
           errorbar(mean_n, std_n); 
           legend(['LDA', 'SVM', 'CART', 'k-NN'])
           grid on
-          
 %           er = errorbar(x,y,err)
-        
 %     end
     
 end
 
-mean_n
-% Example data as before
-model_series = mean_n; %[10 40 50 60; 20 50 60 70; 30 60 80 90];
-model_error =  std_n; %[1 2 8 6; 2 5 9 12; 3 6 10 13];
-b = bar(model_series, 'grouped');
-
-%%For MATLAB 2019b or later releases
+%% ----- Barplots -----
+b = bar(mean_n, 'grouped');
 hold on
-% Calculate the number of bars in each group
-nbars = size(model_series, 2);
-% Get the x coordinate of the bars
+nbars = size(mean_n, 2);
 x = [];
 for i = 1:nbars
     x = [x ; b(i).XEndPoints];
 end
-% Plot the errorbars
-errorbar(x',model_series,model_error,'k','linestyle','none');
+errorbar(x',mean_n, std_n,'k','linestyle','none');
 hold off
 
-
-% rms_lda= sqrt(mean(err_lda).^2 + var(err_lda));
-% rms_svmrbf= sqrt(mean(err_svmrbf).^2 + var(err_svmrbf));
-% rms_cart3= sqrt(mean(err_cart3).^2 + var(err_cart3));
-% rms_cart5= sqrt(mean(err_cart5).^2 + var(err_cart5)); 
-% rms_3nn= sqrt(mean(err_3nn).^2 + var(err_3nn)); 
-% rms_5nn= sqrt(mean(err_5nn).^2 + var(err_5nn));
-% % 
-% %
-% t= 1:c;
-% figure; plot(t,mean(err_lda), ...
-%      t, mean(err_svmrbf), ...
-%     t, mean(err_cart3), t, mean(err_cart5), ...
-%     t, mean(err_3nn), t, mean(err_5nn), 'linewidth', 2); 
-% legend('LDA', 'RBF SVM', 'CART-MLS3', 'CART-MLS10', '3NN', '5NN') 
-% title('Bias')
-% grid on         
-% 
-% % % %%
-% % % t= 1:c;
-% % % figure; plot(t,var(err_lda), ...
-% % %      t, var(err_svmrbf), ...
-% % %     t, var(err_cart3), t, var(err_cart5), ...
-% % %     t, var(err_3nn), t, var(err_5nn)); 
-% % % legend('LDA', 'RBF SVM', 'CART-MLS3', 'CART-MLS10', '3NN', '5NN') 
-% % % title('Variance')
-% % % grid on 
-% % % %%
-% t=1:c
-% figure; plot(t,rms_lda, ...
-%      t, rms_svmrbf, ...
-%     t, rms_cart3, t, rms_cart5, ...
-%     t, rms_3nn, t, rms_5nn); 
-% legend('LDA', 'RBF SVM', 'CART-MLS3', 'CART-MLS10', '3NN', '5NN') 
-% title('RMS')
-% grid on         
-% 
-% % %% 
-% % 
-% % % n50_errors= [err_lda(:,1), err_svmrbf(:,1), err_3nn(:,1), err_5nn(:,1), err_cart(:,1)]
-% % 
-% % for i=1:5
-% %     figure;
-% %     boxplot([err_lda(:,i), err_svmrbf(:,i), ...
-% %         err_3nn(:,i), err_5nn(:,i), ...
-% %         err_cart3(:,i)])
-% %     title(['n = ',num2str(50*i)])
-% % end
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % %%
-% % 
-% % 
-% % 
-% % 
-% % % figure;plot(rms_lda, 'marker', 'o')
-% %  
-% % 
-% % % for i =1:reps
-% % %     for ii = 1:7
-% % %         indx= randsample(size(train_dat.x,1), ii*50);
-% % %         mdlsvm = fitcsvm(dat.x(indx,:), dat.y(indx), 'KernelFunction', 'linear');
-% % %         hat_y= mdlsvm.predict(test_dat.x);
-% % %         err_svm(i,ii)= mean(hat_y ~= test_dat.y);
-% % %     end
-% % % end
-% % % figure; boxplot(err_svm); title('Linear SVM')
-% % %  
-% % % rms_svm_linear= sqrt(mean(err_svm).^2 + var(err_svm));
-% % % % figure;plot(rms_svm, 'marker', 'o', 'title', 'Linear SVM')
-% % 
-% % 
+%% ----- Boxplots -----
 % % for i =1:reps
 % %     for ii = 1:c
 % %         indx= randsample(size(train_dat.x,1), ii*50);
@@ -331,6 +237,4 @@ hold off
 % %         err_cart3(:,i), err_cart5(:,i)])
 % %     title('n', num2str(i))
 % % end
-% % 
-% % 
-% % 
+
