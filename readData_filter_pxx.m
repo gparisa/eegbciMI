@@ -26,7 +26,7 @@ for subject=1:20
     feature_label.y= [feature_label.y; y'];
     clear x pxx_trial y 
 end
-save(append('feature_label_val.mat', 'feature_label')
+save('feature_label_val.mat', 'feature_label')
 
 ####################################
     ## (Repeat for training data): 
@@ -48,4 +48,4 @@ for subject=1:20
     clear x pxx_trial y 
 end
 
-save(append('feature_label_train.mat', 'feature_label')
+save('feature_label_train.mat', 'feature_label')
