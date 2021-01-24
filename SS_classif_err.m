@@ -14,7 +14,8 @@ for subj= 0:19
 
     [~,featureIdxSortbyP] = sort(p,2); % sort the features
     p_sort= sort(p);
-    num_feat= sum(p_sort < 0.05);
+    p_thresh= 0.05;
+    num_feat= sum(p_sort < p_thresh);
     if num_feat==0 
         num_feat= 1; 
         disp(append('subj', num2str(subj+1),...
@@ -22,7 +23,8 @@ for subj= 0:19
     end
 %     disp(append('subj', num2str(subj), '-num_feat: ', num2str(num_feat)))
     disp(num_feat)
-    dat.x = dat.x(:,featureIdxSortbyP(1:num_feat)); %13 of the features have p < 0.02
+%     Taking the features with p-value less than p_thresh and removing the rest
+    dat.x = dat.x(:,featureIdxSortbyP(1:num_feat)); 
 
     rng('default'); rng(14); 
 
@@ -36,7 +38,7 @@ for subj= 0:19
     train_dat.y(test_index, :)=[];
 
     c=3;
-    reps= 50;
+    reps= 100; 
     for i =1:reps
         for ii = 1:c
             indx= randsample(size(train_dat.x,1), 5*(ii+1));
