@@ -1,8 +1,7 @@
 
-% clear all; clc;
-% ####################################
 % Read data, segmentation, filtering, periodogram PSD, 
  
+% clear all; clc; 
 MI_channels= [8, 9, 10, 11, ...
                 13, 14, 15, ...
                 18, 19, 20, 21, ...
