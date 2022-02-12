@@ -1,12 +1,7 @@
 """
-*********************************************************
-THIS FILE SHOULD BE EXECUTED BEFORE RUNNING EXPERIMENTS.
-*********************************************************     
-"""
-"""
 This file includes the class of Synthetic data.
 This class includes several methods 
-    that can be used to generate several types of synthetic data.
+    to generate several types of synthetic data.
     
 In the GR paper we used "gen_correlated_noisy_features" method.
 """
@@ -22,7 +17,6 @@ class Synthetic_data:
         self.n_class= n_classes
         self.delta= sep_par
         self.n_inf= n_informative_features
-#         self.n_noise= n_noise_features
     
     def gen_xor_blobs_circ(self, cluster_std= 1, n_noisy_features= 0):
         import numpy as np
@@ -118,7 +112,6 @@ class Synthetic_data:
                                     n_blocks, block_sizes, block_group_vars[i], 
                                     block_corr[i])
                 yi= np.array([i]*class_size[i])
-    #             yi= yi.reshape(len(yi), 1)
                 x= np.concatenate([x, xi])
                 y= np.concatenate([y, yi])
             if n_noisy_features != 0:
@@ -128,10 +121,7 @@ class Synthetic_data:
                                           # centers= np.mean(m_, axis= 0).reshape([1, m_.shape[1]]))
                 return np.concatenate([x[1:, :], x_noise], axis= 1), y[1:]
             else:
-                return  x[1:, :], y[1:]
-                
-        # return x_, y_
-                
+                return  x[1:, :], y[1:]                
             
         elif bimodal is True:
             m_1, m_2= self.get_means_bimodal(n_noisy_features= n_noisy_features)          
