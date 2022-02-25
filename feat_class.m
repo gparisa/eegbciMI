@@ -1,6 +1,6 @@
-% numbers= ['01'; '02'; '03'; '04'; '05'; '06'; '07'; '08'; '09'; '10'; ...
-%             '11'; '12'; '13'; '14'; '15'; '16'; '17'; '18'; '19'; '20'];
+
 clc; clear all
+% discard the channels that are nor related to the motor imagery functions. (see the data set for information about the channels)
 channels= [9, 10, 33, 34, 8, 11, 36, 37, 13, 15, ...
             35, 38, 14, 19, 20, 39, 41, 18, 21, 40];
 feature_label.x= [];
