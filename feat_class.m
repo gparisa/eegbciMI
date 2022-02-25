@@ -1,4 +1,5 @@
-
+% This piece of script extracts the features from the EEG signals from the MI channels,
+    % and saves the outcomes as CSV files. 
 clc; clear all
 % discard the channels that are nor related to the motor imagery functions. (see the data set for information about the channels)
 channels= [9, 10, 33, 34, 8, 11, 36, 37, 13, 15, ...
